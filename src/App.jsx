@@ -3,12 +3,11 @@ import { useState } from 'react'
 import './App.css'
 import { Chessboard } from "react-chessboard";
 import { findPossibleMoves } from './utils/possibleMoves';
-import { Chess } from 'chess.js';
 
 function App() {
-  const [position, setPosition] = useState({})
+  const [board, setBoard] = useState({ d4: 'wN' })
 
-  const handleClick = (sq) => {
+  const handleClick = (sourceSq, sq, piece) => {
     console.log(sq)
 
     const possible = findPossibleMoves(sq)
@@ -16,16 +15,32 @@ function App() {
     possible.forEach((p) => {
       possibleMoves = { ...possibleMoves, [p]: 'bN' }
     })
-    setPosition({ ...possibleMoves, [sq]: 'wN' })
+    setBoard({ ...possibleMoves, [sq]: 'wN' })
   }
 
   return (
     <div className="App">
+      <h2>
+        Drag the White Knight
+      </h2>
       <Chessboard
         boardWidth={560}
-        position={{ ...position }}
-        onSquareClick={handleClick}
+        position={{ ...board }}
+        onPieceDrop={handleClick}
       />
+      <div>
+        <b>
+          Dark Knight -
+        </b>
+        Possible
+        Move
+      </div>
+      <div>
+        <b>
+          White Knigh Knight -
+        </b>
+        Current Knight Position
+      </div>
     </div>
   )
 }
