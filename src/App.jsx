@@ -6,7 +6,7 @@ import { findPossibleMoves } from './utils/possibleMoves';
 import { Chess } from 'chess.js';
 
 function App() {
-  const [position, setPosition] = useState('')
+  const [position, setPosition] = useState({})
 
   const handleClick = (sq) => {
     console.log(sq)
@@ -16,14 +16,14 @@ function App() {
     possible.forEach((p) => {
       possibleMoves = { ...possibleMoves, [p]: 'bN' }
     })
-    setPosition(new Chess({ ...possibleMoves, [sq]: 'wN' }).fen())
+    setPosition({ ...possibleMoves, [sq]: 'wN' })
   }
 
   return (
     <div className="App">
       <Chessboard
         boardWidth={560}
-        position={position}
+        position={{ ...position }}
         onSquareClick={handleClick}
       />
     </div>
